@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stavitelství | Rekonstrukce bez kompromisů</title>
+<meta name="description" content="Kompletní stavební služby od základů po střechu. Rekonstrukce, hrubé stavby, fasády a venkovní úpravy. Kvalita a spolehlivost.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<style>
+/* --- CSS VARIABLES & RESET --- */
+:root {
+--color-bg: #121212;
+--color-surface: #1E1E1E;
+--color-surface-light: #2A2A2A;
+--color-accent: #FF6B00; /* Warm Copper/Orange */
+--color-accent-hover: #E05A00;
+--color-text-main: #FFFFFF;
+--color-text-muted: #A0A0A0;
+--font-heading: 'Montserrat', sans-serif;
+--font-body: 'Inter', sans-serif;
+--transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+background-color: var(--color-bg);
+color: var(--color-text-main);
+font-family: var(--font-body);
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+font-family: var(--font-heading);
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: -0.02em;
+line-height: 1.1;
+}
+
+p {
+color: var(--color-text-muted);
+margin-bottom: 1.5rem;
+}
+
+a {
+text-decoration: none;
+color: inherit;
+transition: var(--transition);
+}
+
+img {
+max-width: 100%;
+height: auto;
+display: block;
+}
+
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 1.5rem;
+}
+
+.section-padding {
+padding: 6rem 0;
+}
+
+/* --- UTILITIES & ANIMATIONS --- */
+.reveal {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+opacity: 1;
+transform: translateY(0);
+}
+
+.accent-text {
+color: var(--color-accent);
+}
+
+/* --- BUTTONS --- */
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 1rem 2rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+border-radius: 4px;
+cursor: pointer;
+transition: var(--transition);
+font-size: 0.9rem;
+gap: 0.5rem;
+}
+
+.btn-primary {
+background-color: var(--color-accent);
+color: #fff;
+border: 2px solid var(--color-accent);
+}
+
+.btn-primary:hover {
+background-color: var(--color-accent-hover);
+border-color: var(--color-accent-hover);
+transform: translateY(-2px);
+}
+
+.btn-outline {
+background-color: transparent;
+color: #fff;
+border: 2px solid #fff;
+}
+
+.btn-outline:hover {
+background-color: #fff;
+color: var(--color-bg);
+transform: translateY(-2px);
+}
+
+/* --- HEADER --- */
+header {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: rgba(18, 18, 18, 0.95);
+backdrop-filter: blur(10px);
+z-index: 1000;
+border-bottom: 1px solid rgba(255,255,255,0.05);
+padding: 1rem 0;
+}
+
+.nav-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-family: var(--font-heading);
+font-size: 1.5rem;
+font-weight: 900;
+color: #fff;
+}
+
+.logo span {
+color: var(--color-accent);
+}
+
+nav ul {
+display: flex;
+list-style: none;
+gap: 2rem;
+}
+
+nav ul li a {
+font-size: 0.9rem;
+font-weight: 600;
+text-transform: uppercase;
+}
+
+nav ul li a:hover {
+color: var(--color-accent);
+}
+
+.mobile-toggle {
+display: none;
+color: #fff;
+cursor: pointer;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+position: relative;
+height: 100vh;
+min-height: 600px;
+display: flex;
+align-items: center;
+background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+}
+
+.hero-content {
+max-width: 800px;
+}
+
+.hero h1 {
+font-size: clamp(2.5rem, 5vw, 4.5rem);
+margin-bottom: 1.5rem;
+color: #fff;
+}
+
+.hero-sub {
+font-size: clamp(1.1rem, 2vw, 1.5rem);
+color: #ccc;
+margin-bottom: 2.5rem;
+max-width: 600px;
+}
+
+.hero-buttons {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+}
+
+/* --- ABOUT SECTION --- */
+.about-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+align-items: center;
+}
+
+.section-title {
+font-size: clamp(2rem, 3vw, 3rem);
+margin-bottom: 1rem;
+position: relative;
+display: inline-block;
+}
+
+.section-title::after {
+content: '';
+display: block;
+width: 60px;
+height: 4px;
+background-color: var(--color-accent);
+margin-top: 10px;
+}
+
+.about-text h3 {
+font-size: 1.5rem;
+color: #fff;
+margin-bottom: 1rem;
+}
+
+.stat-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 2rem;
+margin-top: 2rem;
+}
+
+.stat-item h4 {
+font-size: 2.5rem;
+color: var(--color-accent);
+}
+
+.stat-item span {
+text-transform: uppercase;
+font-size: 0.8rem;
+letter-spacing: 0.1em;
+color: #fff;
+}
+
+/* --- SERVICES SECTION --- */
+.services {
+background-color: var(--color-surface);
+}
+
+.services-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin-top: 4rem;
+}
+
+.service-card {
+background-color: var(--color-surface-light);
+padding: 2.5rem;
+border-left: 4px solid transparent;
+transition: var(--transition);
+}
+
+.service-card:hover {
+border-left-color: var(--color-accent);
+transform: translateY(-5px);
+background-color: #333;
+}
+
+.service-icon {
+color: var(--color-accent);
+margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+font-size: 1.25rem;
+margin-bottom: 1rem;
+color: #fff;
+}
+
+/* --- WHY CHOOSE US --- */
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+margin-top: 4rem;
+}
+
+.feature-item {
+text-align: center;
+padding: 2rem;
+border: 1px solid rgba(255,255,255,0.1);
+}
+
+.feature-icon {
+background-color: rgba(255, 107, 0, 0.1);
+width: 70px;
+height: 70px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 1.5rem auto;
+color: var(--color-accent);
+}
+
+.feature-item h3 {
+font-size: 1.1rem;
+margin-bottom: 0.5rem;
+}
+
+/* --- GALLERY --- */
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+gap: 1rem;
+margin-top: 3rem;
+}
+
+.gallery-item {
+position: relative;
+height: 300px;
+overflow: hidden;
+cursor: pointer;
+}
+
+.gallery-item img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+transform: scale(1.1);
+}
+
+.overlay {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+padding: 1.5rem;
+background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+opacity: 0;
+transition: var(--transition);
+}
+
+.gallery-item:hover .overlay {
+opacity: 1;
+}
+
+/* --- CONTACT SECTION --- */
+.contact {
+background-color: var(--color-surface);
+}
+
+.contact-wrapper {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 4rem;
+margin-top: 3rem;
+}
+
+.contact-info-box {
+background-color: var(--color-bg);
+padding: 3rem;
+border: 1px solid rgba(255,255,255,0.1);
+}
+
+.info-row {
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 2rem;
+}
+
+.info-row i {
+color: var(--color-accent);
+}
+
+.info-text strong {
+display: block;
+color: #fff;
+margin-bottom: 0.2rem;
+}
+
+form {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+}
+
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+
+label {
+font-size: 0.9rem;
+font-weight: 600;
+color: #ccc;
+}
+
+input, textarea, select {
+background-color: var(--color-bg);
+border: 1px solid #444;
+padding: 1rem;
+color: #fff;
+font-family: var(--font-body);
+font-size: 1rem;
+outline: none;
+transition: var(--transition);
+}
+
+input:focus, textarea:focus {
+border-color: var(--color-accent);
+}
+
+/* --- FOOTER --- */
+footer {
+background-color: #000;
+padding: 4rem 0 2rem 0;
+border-top: 1px solid #222;
+}
+
+.footer-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 3rem;
+margin-bottom: 3rem;
+}
+
+.footer-col h4 {
+color: #fff;
+margin-bottom: 1.5rem;
+font-size: 1.1rem;
+}
+
+.footer-links li {
+list-style: none;
+margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+color: var(--color-text-muted);
+font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+color: var(--color-accent);
+}
+
+.copyright {
+text-align: center;
+color: #555;
+font-size: 0.8rem;
+padding-top: 2rem;
+border-top: 1px solid #222;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+.about-content, .contact-wrapper {
+grid-template-columns: 1fr;
+gap: 3rem;
+}
+
+.hero h1 {
+font-size: 3rem;
+}
+}
+
+@media (max-width: 768px) {
+nav ul {
+display: none;
+flex-direction: column;
+position: absolute;
+top: 100%;
+left: 0;
+width: 100%;
+background-color: #121212;
+padding: 2rem;
+text-align: center;
+border-bottom: 1px solid #333;
+}
+
+nav ul.active {
+display: flex;
+}
+
+.mobile-toggle {
+display: block;
+}
+
+.hero {
+text-align: center;
+justify-content: center;
+}
+
+.hero-buttons {
+justify-content: center;
+}
+
+.section-padding {
+padding: 4rem 0;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+<div class="container nav-container">
+<a href="#" class="logo">STAVITELSTVÍ <span class="accent-text"></span></a>
+<nav>
+<ul id="nav-menu">
+<li><a href="#about">O nás</a></li>
+<li><a href="#services">Služby</a></li>
+<li><a href="#projects">Realizace</a></li>
+<li><a href="#contact">Kontakt</a></li>
+<li><a href="tel:+420123456789" style="color: var(--color-accent);">123 456 789</a></li>
+</ul>
+<div class="mobile-toggle" onclick="toggleMenu()">
+<i data-lucide="menu"></i>
+</div>
+</nav>
+</div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+<div class="container">
+<div class="hero-content reveal active">
+<h1>Rekonstrukce <br><span class="accent-text">bez kompromisů</span></h1>
+<p class="hero-sub">Profesionální stavební služby v České republice. Od základní desky až po střechu, s důrazem na kvalitu a spolehlivost.</p>
+<div class="hero-buttons">
+<a href="#contact" class="btn btn-primary">Nezávazná poptávka <i data-lucide="arrow-right"></i></a>
+<a href="tel:+420123456789" class="btn btn-outline">Zavolat nyní <i data-lucide="phone"></i></a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section-padding">
+<div class="container">
+<div class="about-content">
+<div class="about-text reveal">
+<h2 class="section-title">Stavíme na důvěře</h2>
+<p>Vítejte ve světě <strong>Stavitelství</strong>. Jsme tým zkušených profesionálů, pro které je stavebnictví víc než jen práce – je to řemeslo, které si žádá preciznost.</p>
+<h3>Náš přístup</h3>
+<p>Specializujeme se na kompletní stavební činnost. Ať už jde o drobnou rekonstrukci bytu nebo hrubou stavbu rodinného domu, ke každému projektu přistupujeme individuálně. Zaručujeme dodržování termínů, transparentní rozpočet a maximální kvalitu provedení.</p>
+
+<div class="stat-grid">
+<div class="stat-item">
+<h4 id="years-count">10+</h4>
+<span>Let zkušeností</span>
+</div>
+<div class="stat-item">
+<h4 id="projects-count">200+</h4>
+<span>Hotových projektů</span>
+</div>
+</div>
+</div>
+<div class="about-image reveal">
+<!-- Placeholder for About Image -->
+<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Construction detail" style="border-radius: 4px; filter: grayscale(20%);">
+</div>
+</div>
+</div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="section-padding services">
+<div class="container">
+<div class="reveal" style="text-align: center; max-width: 700px; margin: 0 auto;">
+<h2 class="section-title">Naše Služby</h2>
+<p>Komplexní řešení pro váš domov i komerční prostory.</p>
+</div>
+
+<div class="services-grid">
+<!-- Service 1 -->
+<div class="service-card reveal">
+<div class="service-icon"><i data-lucide="home" size="40"></i></div>
+<h3>Kompletní rekonstrukce</h3>
+<p>Renovace bytových jader, domů i komerčních prostor na klíč. Staráme se o vše od bourání po finální úklid.</p>
+</div>
+<!-- Service 2 -->
+<div class="service-card reveal">
+<div class="service-icon"><i data-lucide="brick-wall" size="40"></i></div>
+<h3>Hrubé stavby</h3>
+<p>Realizace základových desek, zdiva a stropních konstrukcí. Pevné základy pro vaši budoucnost.</p>
+</div>
+<!-- Service 3 -->
+<div class="service-card reveal">
+<div class="service-icon"><i data-lucide="paint-bucket" size="40"></i></div>
+<h3>Fasády a zateplení</h3>
+<p>Moderní fasádní systémy, které chrání dům a šetří energii. Estetika spojená s funkčností.</p>
+</div>
+<!-- Service 4 -->
+<div class="service-card reveal">
+<div class="service-icon"><i data-lucide="hammer" size="40"></i></div>
+<h3>Střechy</h3>
+<p>Pokládka střešních krytin, klempířské práce a opravy krovů. Bezpečná střecha nad hlavou.</p>
+</div>
+<!-- Service 5 -->
+<div class="service-card reveal">
+<div class="service-icon"><i data-lucide="footprints" size="40"></i></div>
+<h3>Chodníky a venkovní úpravy</h3>
+<p>Zámkové dlažby, terasy, ploty a terénní úpravy zahrad. Dokonalé okolí vašeho domu.</p>
+</div>
+<!-- Service 6 -->
+<div class="service-card reveal">
+<div class="service-icon"><i data-lucide="plus-circle" size="40"></i></div>
+<h3>Další stavební práce</h3>
+<p>Sádrokartony, obklady, dlažby a veškeré zednické práce dle vašich specifických požadavků.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section-padding">
+<div class="container">
+<div class="features-grid reveal">
+<div class="feature-item">
+<div class="feature-icon"><i data-lucide="award"></i></div>
+<h3>Dlouholeté zkušenosti</h3>
+<p>Odbornost prověřená roky praxe a desítkami úspěšných realizací.</p>
+</div>
+<div class="feature-item">
+<div class="feature-icon"><i data-lucide="user-check"></i></div>
+<h3>Individuální přístup</h3>
+<p>Nasloucháme vašim potřebám a hledáme nejlepší řešení na míru.</p>
+</div>
+<div class="feature-item">
+<div class="feature-icon"><i data-lucide="check-circle-2"></i></div>
+<h3>Precizní provedení</h3>
+<p>Detail je pro nás zásadní. Neodejdeme, dokud není vše perfektní.</p>
+</div>
+<div class="feature-item">
+<div class="feature-icon"><i data-lucide="message-square"></i></div>
+<h3>Transparentní komunikace</h3>
+<p>Žádné skryté poplatky. Jednáme s vámi narovinu od začátku do konce.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Gallery Section -->
+<section id="projects" class="section-padding services">
+<div class="container">
+<h2 class="section-title reveal">Vybrané Realizace</h2>
+<div class="gallery-grid reveal">
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Projekt 1">
+<div class="overlay"><h4>Rekonstrukce Vily</h4><p>Kompletní renovace interiéru a fasády.</p></div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Projekt 2">
+<div class="overlay"><h4>Moderní Koupelna</h4><p>Obklady a sanita na míru.</p></div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1593604340977-dd2667104b92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Projekt 3">
+<div class="overlay"><h4>Hrubá Stavba</h4><p>Rodinný dům v Čechách.</p></div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1621619856624-42fd193a0661?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Projekt 4">
+<div class="overlay"><h4>Fasáda a Zahrada</h4><p>Venkovní úpravy a zateplení.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section-padding contact">
+<div class="container">
+<div class="contact-wrapper">
+
+<!-- Contact Info -->
+<div class="contact-info reveal">
+<h2 class="section-title">Kontaktujte Nás</h2>
+<p>Máte projekt v hlavě? Ozvěte se nám pro nezávaznou konzultaci a cenovou nabídku.</p>
+
+<div class="contact-info-box">
+<div class="info-row">
+<i data-lucide="phone" size="24"></i>
+<div class="info-text">
+<strong>Zavolejte nám</strong>
+<a href="tel:+420123456789">+420 123 456 789</a>
+</div>
+</div>
+<div class="info-row">
+<i data-lucide="globe" size="24"></i>
+<div class="info-text">
+<strong>Web</strong>
+<a href="http://vasweb.cz">vasweb.cz</a>
+</div>
+</div>
+<div class="info-row">
+<i data-lucide="map-pin" size="24"></i>
+<div class="info-text">
+<strong>Lokalita</strong>
+<span>Česká republika</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Form -->
+<div class="contact-form reveal">
+<form>
+<div class="form-group">
+<label for="name">Jméno a příjmení</label>
+<input type="text" id="name" placeholder="Váš jméno">
+</div>
+<div class="form-group">
+<label for="phone">Telefonní číslo</label>
+<input type="tel" id="phone" placeholder="+420 777 888 999">
+</div>
+<div class="form-group">
+<label for="email">E-mail</label>
+<input type="email" id="email" placeholder="vas@email.cz">
+</div>
+<div class="form-group">
+<label for="message">Popis projektu</label>
+<textarea id="message" rows="5" placeholder="Stručně popište, co potřebujete zrealizovat..."></textarea>
+</div>
+<button type="submit" class="btn btn-primary" style="width: 100%; border:none;">Odeslat poptávku</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-col">
+<a href="#" class="logo"><span class="accent-text">STAVITELSTVÍ</span></a>
+<p style="margin-top: 1rem; font-size: 0.9rem;">Váš partner pro kvalitní stavby a rekonstrukce. Spolehlivost, na kterou se můžete postavit.</p>
+</div>
+<div class="footer-col">
+<h4>Rychlé odkazy</h4>
+<ul class="footer-links">
+<li><a href="#about">O nás</a></li>
+<li><a href="#services">Služby</a></li>
+<li><a href="#projects">Realizace</a></li>
+<li><a href="#contact">Kontakt</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Služby</h4>
+<ul class="footer-links">
+<li><a href="#">Rekonstrukce</a></li>
+<li><a href="#">Hrubé stavby</a></li>
+<li><a href="#">Fasády</a></li>
+<li><a href="#">Střechy</a></li>
+</ul>
+</div>
+</div>
+<div class="copyright">
+&copy; <script>document.write(new Date().getFullYear())</script> Stavitelství
+</div>
+</div>
+</footer>
+
+<!-- Scripts -->
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  // ===== ICONS =====
+  if (window.lucide) {
+    lucide.createIcons();
+  } else {
+    console.error("Lucide se nenačetl");
+  }
+
+  // ===== MOBILE MENU =====
+  window.toggleMenu = function () {
+    document.getElementById("nav-menu")?.classList.toggle("active");
+  };
+
+  // ===== SMOOTH SCROLL =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+
+      const target = this.getAttribute("href");
+      if (!target || target === "#") return;
+
+      const el = document.querySelector(target);
+      if (!el) return;
+
+      e.preventDefault();
+      el.scrollIntoView({ behavior:"smooth" });
+
+      document.getElementById("nav-menu")?.classList.remove("active");
+    });
+  });
+
+  // ===== REVEAL ANIMATION =====
+  function reveal(){
+    document.querySelectorAll(".reveal").forEach(el=>{
+      if(el.getBoundingClientRect().top < window.innerHeight-150){
+        el.classList.add("active");
+      }
+    });
+  }
+
+  reveal();
+  window.addEventListener("scroll", reveal);
+
+});
+</script>
+
+</body>
+</html>
